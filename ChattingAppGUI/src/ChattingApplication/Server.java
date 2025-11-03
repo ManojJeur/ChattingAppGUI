@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Server extends JFrame implements ActionListener{
+public class Server extends JFrame implements ActionListener{//ActionListner is used to perform events 
 	Server(){
 		setLayout(null);// we are not using any inbuilt layouts
 		JPanel p1=new JPanel();
@@ -20,7 +20,7 @@ public class Server extends JFrame implements ActionListener{
 		
 		back.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				setVisible(false);
+				System.exit(ABORT);;
 			}
 		});
 		
@@ -60,16 +60,35 @@ public class Server extends JFrame implements ActionListener{
 		name.setFont(new Font("TIMES NEW ROMAN",Font.BOLD,18));
 		p1.add(name);
 		
-		JLabel status=new JLabel("online");
+		JLabel status=new JLabel("online");//users can’t type or click it
 		status.setBounds(110,40,100,40);
 		status.setForeground(Color.gray); 
 		status.setFont(new Font("TIMES NEW ROMAN",Font.BOLD,14));
 		p1.add(status);
 		
+		JPanel a1= new JPanel();//chatting area
+		a1.setBounds(5,75,440,570);
+		add(a1);
+		
+		JTextField text= new JTextField();
+		text.setBounds(5,655,310,40);
+		text.setFont(new Font("San_Serif",Font.PLAIN,16));
+		add(text);
+		
+		JButton send=new JButton("Send");
+		send.setBounds(320,655,123,40);
+		send.setBackground(new Color(7,94,84));
+		send.setForeground(Color.WHITE);
+		send.setFont(new Font("San_Serif",Font.PLAIN,16));
+		add(send);
+		
+		
+		
 		setSize(450,700);
-		setLocation(200,50);
+		setLocation(200,0); 
+		setUndecorated(true);//remove unneccessary part from frame
 		setVisible(true);//by default visibility false
-		getContentPane().setBackground(Color.blue);//importing awt because of color class
+		getContentPane().setBackground(Color.WHITE);//importing awt because of color class
 	}
 	@Override
 	public void actionPerformed(ActionEvent ae) {
