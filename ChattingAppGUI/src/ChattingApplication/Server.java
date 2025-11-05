@@ -4,12 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Server extends JFrame implements ActionListener{//ActionListner is used to perform events 
+	JTextField text;//it should be accessed by multiple methods
+	JPanel a1;
+	Box vertical=Box.createVerticalBox();
 	Server(){
 		setLayout(null);// we are not using any inbuilt layouts
 		JPanel p1=new JPanel();
 		p1.setBackground(new Color(7,94,84));//color object for rgb colors
 		p1.setBounds(0,0,450,70);
-		p1.setLayout(null);
+		p1.setLayout(null);//we dont want any byDefault layouts
 		add(p1);
 		ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("icons/3.png"));//add the image from icons folder on the panel
 		Image i2=i1.getImage().getScaledInstance(25,25,Image.SCALE_DEFAULT);
@@ -66,11 +69,11 @@ public class Server extends JFrame implements ActionListener{//ActionListner is 
 		status.setFont(new Font("TIMES NEW ROMAN",Font.BOLD,14));
 		p1.add(status);
 		
-		JPanel a1= new JPanel();//chatting area
+		a1= new JPanel();//chatting area
 		a1.setBounds(5,75,440,570);
 		add(a1);
 		
-		JTextField text= new JTextField();
+		text= new JTextField();
 		text.setBounds(5,655,310,40);
 		text.setFont(new Font("San_Serif",Font.PLAIN,16));
 		add(text);
@@ -79,6 +82,7 @@ public class Server extends JFrame implements ActionListener{//ActionListner is 
 		send.setBounds(320,655,123,40);
 		send.setBackground(new Color(7,94,84));
 		send.setForeground(Color.WHITE);
+		send.addActionListener(this);//calls to method that performs some action after an event
 		send.setFont(new Font("San_Serif",Font.PLAIN,16));
 		add(send);
 		
@@ -91,8 +95,21 @@ public class Server extends JFrame implements ActionListener{//ActionListner is 
 		getContentPane().setBackground(Color.WHITE);//importing awt because of color class
 	}
 	@Override
-	public void actionPerformed(ActionEvent ae) {
+	public void actionPerformed(ActionEvent ae) {//action listener
+		String out=text.getText();//get the text entered into the textFeild
+		JLabel output=new JLabel(out);
+		JPanel p2=new JPanel();
+		p2.add(output);
+		a1.setLayout(new BorderLayout());
 		
+		JPanel right=new JPanel(new BorderLayout());
+		right.add(p2,BorderLayout.LINE_END);//add to the end of every message
+		vertical.add(right);
+		vertical.add(Box.createVerticalStrut(15));//15 is the space between vertical boxes
+		
+		a1.add(vertical,BorderLayout.PAGE_START);//add  
+		
+		validate();//used for repainting after send button
 	}
 	public static void main(String[] args) {
 		new Server();
